@@ -7,17 +7,18 @@ Type=idle
 User=keycloak
 Group=keycloak
 ExecStart=/opt/keycloak/bin/kc.sh start \
-  --http-port=8077 \
-  --http-host=0.0.0.0 \
-  --log-level=INFO \
-  --cache=local
+  --https-port=8443 \
+  --https-key-store-file=/opt/keycloak/certs/keystore.p12 \
+  --https-key-store-password=changeit \
+  --http-enabled=false \
+  --hostname-strict=false \
+  --hostname-strict-https=false \
+  --log-level=INFO
 WorkingDirectory=/opt/keycloak
 TimeoutStopSec=300
 Environment="KEYCLOAK_ADMIN=admin"
 Environment="KEYCLOAK_ADMIN_PASSWORD=admin"
 Environment="KC_LOG_LEVEL=INFO"
-Environment="KC_HEAP=1024M"
-Environment="KC_METASPACE=128M"
 
 [Install]
 WantedBy=multi-user.target
