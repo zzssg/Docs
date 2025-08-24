@@ -8,6 +8,7 @@ User=keycloak
 Group=keycloak
 ExecStart=/opt/keycloak/bin/kc.sh start \
   --db=postgres \
+  --db-schema=keycloak_schema \
   --db-url=jdbc:postgresql://localhost:5432/keycloak \
   --db-username=keycloak \
   --db-password=3044010 \
