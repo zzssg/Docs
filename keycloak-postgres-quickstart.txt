@@ -1,0 +1,12 @@
+sudo apt install postgresql postgresql-contrib -y
+sudo systemctl start postgresql
+sudo systemctl enable postgresql
+
+# Переключение на пользователя postgres
+sudo -u postgres psql
+
+# В консоли PostgreSQL выполните:
+CREATE DATABASE keycloak;
+CREATE USER keycloak WITH ENCRYPTED PASSWORD 'strong_password';
+GRANT ALL PRIVILEGES ON DATABASE keycloak TO keycloak;
+\q
