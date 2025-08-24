@@ -1,16 +1,16 @@
 [Unit]
 Description=Keycloak Identity and Access Management
-After=network.target
+After=network.target postgresql.service
 
 [Service]
 Type=idle
 User=keycloak
 Group=keycloak
 ExecStart=/opt/keycloak/bin/kc.sh start \
-  --db=h2-file \
-  --db-url=jdbc:h2:file:/var/lib/keycloak/data/keycloakdb \
+  --db=postgres \
+  --db-url=jdbc:postgresql://localhost:5432/keycloak \
   --db-username=keycloak \
-  --db-password=password \
+  --db-password=3044010 \
   --https-port=8477 \
   --https-key-store-file=/opt/keycloak/certs/keystore.p12 \
   --https-key-store-password=changeit \
