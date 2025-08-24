@@ -1,0 +1,23 @@
+[Unit]
+Description=Keycloak Identity and Access Management
+After=network.target
+
+[Service]
+Type=idle
+User=keycloak
+Group=keycloak
+ExecStart=/opt/keycloak/bin/kc.sh start \
+  --http-port=8077 \
+  --http-host=0.0.0.0 \
+  --log-level=INFO \
+  --cache=local
+WorkingDirectory=/opt/keycloak
+TimeoutStopSec=300
+Environment="KEYCLOAK_ADMIN=admin"
+Environment="KEYCLOAK_ADMIN_PASSWORD=admin"
+Environment="KC_LOG_LEVEL=INFO"
+Environment="KC_HEAP=1024M"
+Environment="KC_METASPACE=128M"
+
+[Install]
+WantedBy=multi-user.target
