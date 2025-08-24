@@ -1,0 +1,13 @@
+# Create certs dir
+sudo mkdir -p /opt/keycloak/certs
+sudo chown keycloak:keycloak /opt/keycloak/certs
+
+# Certificate creation
+sudo openssl req -x509 -newkey rsa:4096 -keyout /opt/keycloak/certs/key.pem \
+  -out /opt/keycloak/certs/cert.pem -days 365 -nodes -subj \
+  "/C=US/ST=State/L=City/O=Organization/CN=localhost"
+
+# Wrap the cert into pkcs12 to meet Keycloak reqs
+sudo openssl pkcs12 -export -out /opt/keycloak/certs/keystore.p12 \
+  -inkey /opt/keycloak/certs/key.pem -in /opt/keycloak/certs/cert.pem \
+  -passout pass:changeit -name keycloak
