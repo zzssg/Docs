@@ -2,15 +2,20 @@ sudo apt install postgresql postgresql-contrib -y
 sudo systemctl start postgresql
 sudo systemctl enable postgresql
 
-# Переключение на пользователя postgres
+# Connect database with user postgres
 sudo -u postgres psql
 
-# В консоли PostgreSQL выполните:
+# Create database keycloak
+CREATE DATABASE keycloak;
+CREATE USER keycloak WITH ENCRYPTED PASSWORD 'strong_password';
+GRANT ALL PRIVILEGES ON DATABASE keycloak TO keycloak;
+
+# Switch to database keycloack
+\c keycloak
+
+# Create schema and grant privilegies for user keycloak
 CREATE SCHEMA keycloak_schema;
 GRANT ALL PRIVILEGES ON SCHEMA keycloak_schema TO keycloak;
 ALTER DEFAULT PRIVILEGES IN SCHEMA keycloak_schema 
     GRANT ALL PRIVILEGES ON TABLES TO keycloak;
-CREATE DATABASE keycloak;
-CREATE USER keycloak WITH ENCRYPTED PASSWORD 'strong_password';
-GRANT ALL PRIVILEGES ON DATABASE keycloak TO keycloak;
 \q
